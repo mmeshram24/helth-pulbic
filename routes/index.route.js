@@ -1,0 +1,36 @@
+const express = require('express');
+const router = express.Router();
+const userRoutes = require('./user/user.route');
+const authRoutes = require('./auth.route');
+const languageRoutes = require("./language/language.route");
+const symptomRoutes = require("./symptom/symptom.route");
+const favouriteDoctorRoutes = require("./favourite doctor/favourite.doctor.route");
+const aboutusRoutes = require("./aboutus/aboutus.route");
+const callRoutes = require("./call/call.route");
+const faqRoutes = require("./faq/faq.route");
+const privacyPolicyRoutes = require("./privacyPolicy/privacy.policy.route");
+const questionRoutes = require("./question/question.route");
+const authMiddleware = require("../middleware/authMiddleware")();
+const bookingRoutes = require('./booking/booking.route');
+const familyRoute = require('./family/family.member.route');
+const firebaseRoutes = require("./firebase");
+const languageRoute = require('./language/language.route');
+const supportRoute = require('./support/support.route');
+
+
+router.use('/auth', authRoutes);
+router.use('/aboutus', aboutusRoutes);
+router.use('/faq', faqRoutes);
+router.use('/privacypolicy', privacyPolicyRoutes);
+router.use('/family', authMiddleware, familyRoute);
+router.use('/language', authMiddleware, languageRoutes);
+router.use('/symptom', authMiddleware, symptomRoutes);
+router.use('/question', authMiddleware, questionRoutes);
+router.use('/appointment', authMiddleware, bookingRoutes);
+router.use('/favourite', authMiddleware, favouriteDoctorRoutes);
+router.use('/language', authMiddleware, languageRoute);
+router.use('/support', authMiddleware, supportRoute);
+router.use('/call', authMiddleware, callRoutes);
+router.use('/user', userRoutes);
+router.use('/firebase', authMiddleware, firebaseRoutes);
+module.exports = router;
